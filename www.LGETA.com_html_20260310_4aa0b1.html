@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGTEA - Laboratoire de Géomatique et d'Écologie Tropicale Appliquée</title>
+    <style>
+        /* Styles généraux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* En-tête et navigation */
+        header {
+            background: linear-gradient(135deg, #2c5e2e, #1e3c20);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-circle {
+            width: 60px;
+            height: 60px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+            border: 2px solid #ffd700;
+        }
+
+        .lab-name h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .lab-name p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        /* Bannière d'accueil */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Sections principales */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: #2c5e2e;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #4CAF50;
+        }
+
+        /* Grille pour les axes de recherche */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .research-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .research-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        /* Grille pour l'équipe */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #4CAF50, #2c5e2e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .member-role {
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* Grille pour les publications */
+        .publications-list {
+            list-style: none;
+        }
+
+        .publication-item {
+            background: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .publication-title {
+            font-weight: bold;
+            color: #2c5e2e;
+            margin-bottom: 5px;
+        }
+
+        .publication-authors {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .publication-journal {
+            font-style: italic;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Grille pour les actualités */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .news-image {
+            height: 200px;
+            background: linear-gradient(135deg, #4CAF50, #2c5e2e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-date {
+            color: #4CAF50;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        /* Formulaire de contact */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c5e2e;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Pied de page */
+        footer {
+            background: #1e3c20;
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .footer-section p {
+            margin-bottom: 10px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #4CAF50;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-area {
+                margin-bottom: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête -->
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <div class="logo-circle">LGTEA</div>
+                <div class="lab-name">
+                    <h1>Laboratoire de Géomatique et d'Écologie Tropicale Appliquée</h1>
+                    <p>Université Marien Ngouabi • École Nationale Supérieure d'Agronomie et de Foresterie</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#laboratoire">Le Laboratoire</a></li>
+                    <li><a href="#recherche">Recherche</a></li>
+                    <li><a href="#equipe">Équipe</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#actualites">Actualités</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Section Accueil -->
+    <section id="accueil">
+        <div class="hero">
+            <h2>Bienvenue au LGTEA</h2>
+            <p>Explorer, comprendre et préserver les écosystèmes tropicaux par la géomatique et l'écologie appliquée</p>
+            <a href="#laboratoire" class="btn">En savoir plus</a>
+        </div>
+    </section>
+
+    <!-- Section Le Laboratoire -->
+    <section id="laboratoire" class="container">
+        <h2 class="section-title">Le Laboratoire</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">Le LGTEA est une unité de recherche de l'École Nationale Supérieure d'Agronomie et de Foresterie de l'Université Marien Ngouabi. Notre mission est de contribuer à la connaissance et à la gestion durable des écosystèmes tropicaux à travers l'utilisation innovante des outils géomatiques et des approches écologiques.</p>
+            <p>Créé en 2010, le laboratoire rassemble des chercheurs, enseignants-chercheurs et doctorants passionnés par l'étude des forêts tropicales, de la biodiversité et des interactions homme-nature.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 50px;">
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; color: #4CAF50;">15+</div>
+                <p>Chercheurs permanents</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; color: #4CAF50;">20+</div>
+                <p>Doctorants</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; color: #4CAF50;">50+</div>
+                <p>Publications</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; color: #4CAF50;">10+</div>
+                <p>Projets en cours</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Recherche -->
+    <section id="recherche" style="background-color: #f5f5f5;">
+        <div class="container">
+            <h2 class="section-title">Nos Axes de Recherche</h2>
+            <div class="research-grid">
+                <div class="research-card">
+                    <div class="research-icon">🗺️</div>
+                    <h3>Géomatique Appliquée</h3>
+                    <p>Utilisation des SIG, de la télédétection et de l'analyse spatiale pour la cartographie et le suivi des écosystèmes tropicaux.</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-icon">🌳</div>
+                    <h3>Écologie des Forêts Tropicales</h3>
+                    <p>Étude de la dynamique, de la structure et de la biodiversité des forêts tropicales humides et sèches.</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-icon">🦋</div>
+                    <h3>Conservation de la Biodiversité</h3>
+                    <p>Évaluation des menaces et développement de stratégies pour la conservation des espèces et des habitats.</p>
+                </div>
+                <div class="research-card">
+                    <div class="research-icon">🌍</div>
+                    <h3>Changements Climatiques</h3>
+                    <p>Impact des changements globaux sur les écosystèmes tropicaux et les services écosystémiques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Équipe -->
+    <section id="equipe" class="container">
+        <h2 class="section-title">Notre Équipe</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-photo">PN</div>
+                <h3>Pr. Paul Nguema</h3>
+                <div class="member-role">Directeur du laboratoire</div>
+                <p>Écologue, spécialiste des forêts tropicales</p>
+            </div>
+            <div class="team-member">
+                <div class="member-photo">MM</div>
+                <h3>Dr. Marie Moussavou</h3>
+                <div class="member-role">Chercheure principale</div>
+                <p>Géomaticienne, télédétection</p>
+            </div>
+            <div class="team-member">
+                <div class="member-photo">JO</div>
+                <h3>Dr. Jean Obiang</h3>
+                <div class="member-role">Chercheur</div>
+                <p>Écologue, biodiversité</p>
+            </div>
+            <div class="team-member">
+                <div class="member-photo">AM</div>
+                <h3>Alice Mba</h3>
+                <div class="member-role">Doctorante</div>
+                <p>Dynamique des forêts</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Publications -->
+    <section id="publications" style="background-color: #f5f5f5;">
+        <div class="container">
+            <h2 class="section-title">Publications Récentes</h2>
+            <div class="publications-list">
+                <div class="publication-item">
+                    <div class="publication-title">Dynamique spatio-temporelle des forêts du Congo : une approche par télédétection</div>
+                    <div class="publication-authors">Nguema P., Moussavou M., Obiang J.</div>
+                    <div class="publication-journal">Revue d'Écologie Tropicale, 2024</div>
+                </div>
+                <div class="publication-item">
+                    <div class="publication-title">Espèces indicatrices des forêts matures et secondaires au Gabon</div>
+                    <div class="publication-authors">Obiang J., Nguema P., Mba A.</div>
+                    <div class="publication-journal">Journal of Tropical Ecology, 2023</div>
+                </div>
+                <div class="publication-item">
+                    <div class="publication-title">Cartographie des services écosystémiques dans le Bassin du Congo</div>
+                    <div class="publication-authors">Moussavou M., Nguema P.</div>
+                    <div class="publication-journal">Géomatique Appliquée, 2023</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Actualités -->
+    <section id="actualites" class="container">
+        <h2 class="section-title">Actualités</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-image">🔬</div>
+                <div class="news-content">
+                    <div class="news-date">15 Mars 2024</div>
+                    <h3>Mission de terrain en forêt du Mayombe</h3>
+                    <p>Notre équipe a mené une mission de deux semaines pour collecter des données sur la biodiversité.</p>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">📚</div>
+                <div class="news-content">
+                    <div class="news-date">28 Février 2024</div>
+                    <h3>Soutenance de thèse d'Alice Mba</h3>
+                    <p>Félicitations à notre doctorante pour sa soutenance sur la dynamique des forêts tropicales.</p>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">🤝</div>
+                <div class="news-content">
+                    <div class="news-date">10 Janvier 2024</div>
+                    <h3>Nouveau partenariat avec l'IRD</h3>
+                    <p>Signature d'une convention de collaboration avec l'Institut de Recherche pour le Développement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" style="background-color: #f5f5f5;">
+        <div class="container">
+            <h2 class="section-title">Contactez-nous</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px;">
+                <div>
+                    <h3 style="color: #2c5e2e; margin-bottom: 20px;">Informations pratiques</h3>
+                    <p style="margin-bottom: 10px;"><strong>Adresse :</strong> Campus universitaire, BP 69, Brazzaville, République du Congo</p>
+                    <p style="margin-bottom: 10px;"><strong>Téléphone :</strong> +242 06 123 45 67</p>
+                    <p style="margin-bottom: 10px;"><strong>Email :</strong> contact@lgtea.org</p>
+                    <p><strong>Horaires :</strong> Lundi - Vendredi : 8h - 17h</p>
+                </div>
+                <div>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="nom">Nom complet</label>
+                            <input type="text" id="nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sujet">Sujet</label>
+                            <input type="text" id="sujet" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>LGTEA</h3>
+                <p>Laboratoire de Géomatique et d'Écologie Tropicale Appliquée</p>
+                <p>Université Marien Ngouabi<br>École Nationale Supérieure d'Agronomie et de Foresterie</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <p><a href="#accueil" style="color: white; text-decoration: none;">Accueil</a></p>
+                <p><a href="#laboratoire" style="color: white; text-decoration: none;">Le Laboratoire</a></p>
+                <p><a href="#recherche" style="color: white; text-decoration: none;">Recherche</a></p>
+                <p><a href="#contact" style="color: white; text-decoration: none;">Contact</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Suivez-nous</h3>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📷</a>
+                    <a href="#">🔗</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 LGTEA - Université Marien Ngouabi. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
